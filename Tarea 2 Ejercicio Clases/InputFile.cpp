@@ -1,5 +1,5 @@
-#include <iostream>
 #include "InputFile.h"
+#include <iostream>
 #include <sstream>
 #include <fstream>
 
@@ -8,25 +8,26 @@ using namespace std;
 bool InputFile::Read(std::string filename)
 {
 	char output[100];
-	std::ifstream _contents;
-	_contents.open(filename);
-	if (_contents.fail()) {
+	std::ifstream _archivo;
+	std::string a, b;
+	_archivo.open(filename);
+	if (_archivo.fail()) {
 		return false;
 	}
-	else
-		while (!_contents.eof()) {
-			_contents >> output;
-			cout << output << endl;
-
+	else 
+	{
+		while (std::getline(_archivo, a)) {
+			b += a;
+			b += "\n";
 		}
-	_contents.close();
+		_archivo.close();
+		_contents = b;
+	}
+
 	return true;
 }
 
-
 std::string InputFile::GetContents()
 {
-
-	std::string c = _contents;
-	return std::string();
+	return _contents;
 }

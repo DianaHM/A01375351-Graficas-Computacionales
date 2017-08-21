@@ -9,4 +9,5 @@ int main(int argc, char* argv[])
 	std::string contents = myFile.GetContents();
 
 	std::cout << "Contents: " << contents << std::endl;
+	std::cin.get();
 }
