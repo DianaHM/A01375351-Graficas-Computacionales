@@ -16,41 +16,44 @@ GLuint shaderProgram; //Identificador del manager de los shaders (shaderProgram)
 void Initialize()
 {
 	std::vector<glm::vec2> positions;
+	
+	std::vector<glm::vec3> colors;
+	
 	float r = 1.0;
 	float X = 1.0;
 	float Y = 0.0;
-	float contador = 0.0;
+	float contador = 0.0f;
+	
+	positions.push_back(glm::vec2(0.0f, 0.0f));
+	colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
 
-	while (contador<361) {
+	while (contador<=360.0f) {
 		
 		float angulo = glm::radians(contador);
-
 		float x = r*(glm::cos(angulo));
 		float y = r*(glm::sin(angulo));
 
-		positions.push_back(glm::vec2(0.0f, 0.0f));
-		positions.push_back(glm::vec2(X, Y));
 		positions.push_back(glm::vec2(x, y));
+		colors.push_back(glm::vec3(x, y, 0.0f));
 
-		contador = contador + 1.0;
-		X = x;
-		Y = y;
+
+		contador = contador + 1.0f;
+		
+	
+		
 	}
 
 	
 	//Crear una nueva lista. Un color por cada vértice, en este caso 4 
-	std::vector<glm::vec3> colors;
 	
-	int c = 0; 
+	 
+    
+	
+	
 
-	while (c < 361) {
-		colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
-		colors.push_back(glm::vec3(1.0f, 0.0f, 0.0f));
-		colors.push_back(glm::vec3(1.0f, 0.0f, 0.0f));
-		
 
-		c = c + 1;
-	}
+	
+
 
 
 	glGenVertexArrays(1, &vao);
@@ -76,7 +79,7 @@ void Initialize()
 
 	InputFile ifile; 	//Creamos un objeto para leer archivo 
 	
-	ifile.Read("Default.vert"); //VERTEX SHADER. Leemos el archivo default.vert donde está el codigo del vertex shader 
+	ifile.Read("DiscardCenter.vert"); //VERTEX SHADER. Leemos el archivo default.vert donde está el codigo del vertex shader 
 	std::string vertexSource = ifile.GetContents(); //Obtenemos el código fuente y lo guardamos en un string 
 	GLuint vertexShaderHandle = glCreateShader(GL_VERTEX_SHADER); //Creamos un shader de tipo vertex y guardamos su identificador en una variable
 	const GLchar*vertexSource_c = (const GLchar*)vertexSource.c_str(); //Obtener los datos en el formato correcto, en este caso en el lenguaje C
@@ -84,7 +87,7 @@ void Initialize()
 	glCompileShader(vertexShaderHandle); //Compilamos el shader en busca de errores 
 
 
-	ifile.Read("Default.frag");
+	ifile.Read("DiscardCenter.frag");
 	std::string fragmentSource = ifile.GetContents();
 	GLuint fragmentShaderHandle = glCreateShader(GL_FRAGMENT_SHADER);
 	const GLchar *fragmentSource_c = (const GLchar*)fragmentSource.c_str();
@@ -108,7 +111,7 @@ void GameLoop()
 	glUseProgram(shaderProgram); //Activamos el vertex shader y el fragment shaderl utilizando el manager 
 
 	glBindVertexArray(vao); //activamos el mamager y con esto se activan todos los VBOs asociados automaticamente
-	glDrawArrays(GL_TRIANGLE_FAN, 0, 1083); //funcion de dibujando sin indices 
+	glDrawArrays(GL_TRIANGLE_FAN, 0, 362); //funcion de dibujando sin indices 
 	glBindVertexArray(0); //terminamos de utilizar el manager 
 
 	glUseProgram(0);
