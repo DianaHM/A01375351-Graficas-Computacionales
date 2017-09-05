@@ -12,34 +12,46 @@
 GLuint vao; //Identificador del manage al que vamos a asociar todos los VBOs 
 
 GLuint shaderProgram; //Identificador del manager de los shaders (shaderProgram)
-template <typename genType>
 
 void Initialize()
 {
 	std::vector<glm::vec2> positions;
-	positions.push_back(glm::vec2(0.0f, 0.0f));
-	positions.push_back(glm::vec2(1.0f, 0.0f));
-
-	float angulo = glm::radians(genType const &1);
 	float r = 1.0;
-	float y = r(glm::sin(genType const &angulo));
-	float x = r(glm::cos(genType const &angulo));
-	
-	while (angulo < 6.28) {
+	float X = 1.0;
+	float Y = 0.0;
+	float contador = 0.0;
+
+	while (contador<361) {
+		
+		float angulo = glm::radians(contador);
+
+		float x = r*(glm::cos(angulo));
+		float y = r*(glm::sin(angulo));
+
+		positions.push_back(glm::vec2(0.0f, 0.0f));
+		positions.push_back(glm::vec2(X, Y));
 		positions.push_back(glm::vec2(x, y));
 
+		contador = contador + 1.0;
+		X = x;
+		Y = y;
 	}
-
-	
-	
-
 
 	
 	//Crear una nueva lista. Un color por cada vértice, en este caso 4 
 	std::vector<glm::vec3> colors;
-	colors.push_back(glm::vec3(1.0f, 0.0f, 0.0f));
-	colors.push_back(glm::vec3(1.0f, 0.0f, 0.0f));
 	
+	int c = 0; 
+
+	while (c < 361) {
+		colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
+		colors.push_back(glm::vec3(1.0f, 0.0f, 0.0f));
+		colors.push_back(glm::vec3(1.0f, 0.0f, 0.0f));
+		
+
+		c = c + 1;
+	}
+
 
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
@@ -96,7 +108,7 @@ void GameLoop()
 	glUseProgram(shaderProgram); //Activamos el vertex shader y el fragment shaderl utilizando el manager 
 
 	glBindVertexArray(vao); //activamos el mamager y con esto se activan todos los VBOs asociados automaticamente
-	glDrawArrays(GL_TRIANGLE_FAN, 0, 361); //funcion de dibujando sin indices 
+	glDrawArrays(GL_TRIANGLE_FAN, 0, 1083); //funcion de dibujando sin indices 
 	glBindVertexArray(0); //terminamos de utilizar el manager 
 
 	glUseProgram(0);
@@ -120,7 +132,7 @@ int main(int argc, char* argv[])
 
 	glClearColor(1.0f, 1.0f, 0.5f, 1.0f);// la venta de OpenGL.
 	std::cout << glGetString(GL_VERSION) << std::endl;
-	void Initialize();
+	Initialize();
 	glutMainLoop();
 
 	return 0;
