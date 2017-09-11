@@ -13,6 +13,9 @@ GLuint vao; //Identificador del manage al que vamos a asociar todos los VBOs
 
 GLuint shaderProgram; //Identificador del manager de los shaders (shaderProgram)
 
+float vertsPerFrame = 0.0f;
+float delta = 0.01f;
+
 void Initialize()
 {
 	std::vector<glm::vec2> positions;
@@ -47,14 +50,7 @@ void Initialize()
 	//Crear una nueva lista. Un color por cada vértice, en este caso 4 
 	
 	 
-    
-	
-	
-
-
-	
-
-
+ 
 
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
@@ -111,13 +107,33 @@ void GameLoop()
 	glUseProgram(shaderProgram); //Activamos el vertex shader y el fragment shaderl utilizando el manager 
 
 	glBindVertexArray(vao); //activamos el mamager y con esto se activan todos los VBOs asociados automaticamente
-	glDrawArrays(GL_TRIANGLE_FAN, 0, 362); //funcion de dibujando sin indices 
+	glDrawArrays(GL_TRIANGLE_FAN, 0, glm::clamp(vertsPerFrame, 0.0f, 362.0f)); //funcion de dibujando sin indices 
 	glBindVertexArray(0); //terminamos de utilizar el manager 
 
 	glUseProgram(0);
 
+	vertsPerFrame += delta;
+	if (vertsPerFrame < 0.0f || vertsPerFrame >= 370.0f)
+		delta *= -1.0f;
+
 	//cuando terminamos de renderear cambiamos los buffers 
 	glutSwapBuffers();
+}
+
+void Idle()
+{
+	glutPostRedisplay();
+}
+
+void ReshapeWindow(int width, int height)
+{
+	glViewport(0, 0, width, height);
+	glUseProgram(shaderProgram);
+	GLint uniformLocation =
+		glGetUniformLocation(shaderProgram, "Resolution");
+	glUniform2f(uniformLocation, width, height);
+	glUseProgram(0);
+
 }
 
 int main(int argc, char* argv[])
@@ -131,6 +147,8 @@ int main(int argc, char* argv[])
 	glutInitWindowSize(400, 400);
 	glutCreateWindow("Hello World GL");
 	glutDisplayFunc(GameLoop);
+	glutReshapeFunc(ReshapeWindow);
+	glutIdleFunc(Idle);
 	glewInit();
 
 	glClearColor(1.0f, 1.0f, 0.5f, 1.0f);// la venta de OpenGL.
