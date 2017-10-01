@@ -38,22 +38,30 @@ void Mesh::Draw(GLenum primitive)
 	glBindVertexArray(0);
 }
 
-void Mesh::SetPositionAttribute(std::vector<glm::vec2> positions, GLenum usage, GLuint locationIndex)
+void Mesh::SetPositionAttribute(std::vector<glm::vec2> positions, GLenum usage, GLuint locationIndex) //DUDAAAAS
 {
 	const GLsizeiptr sizepositions = sizeof(glm::vec2) * positions.size();
 	const void* positiondata = positions.data();
 	SetAttributeData(_positionsVertexBufferObject, sizepositions, positiondata, usage, locationIndex, 2 );
 	
 	// falta la condición 
+	if (positions.push_back == '\0' || sizepositions != _vertexCount) {
+
+	}
+
 }
 
-void Mesh::SetColorAttribute(std::vector<glm::vec3> colors, GLenum usage, GLuint locationIndex)
+void Mesh::SetColorAttribute(std::vector<glm::vec3> colors, GLenum usage, GLuint locationIndex)  //DUDAAAAS
 {
 	const GLsizeiptr sizecolors = sizeof(glm::vec3) * colors.size();
 	const void* colorsdata = colors.data();
 	SetAttributeData(_colorsVertexBufferObject, sizecolors, colorsdata, usage, locationIndex, 3);
 	
 	// falta la condición 
+	if (colors.push_back == '\0' || sizecolors != _vertexCount) {
+
+	}
+
 }
 
 void Mesh::SetAttributeData(GLuint& buffer, const GLsizeiptr size, const void* data, GLenum usage, GLuint locationIndex, const GLint components)

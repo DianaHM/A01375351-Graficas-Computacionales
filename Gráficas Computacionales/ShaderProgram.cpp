@@ -33,7 +33,7 @@ void ShaderProgram::AttachShader(std::string path, GLenum type)
 	_attachedShaders.push_back(std::move(shader)); 
 }
 
-void ShaderProgram::LinkProgram()
+void ShaderProgram::LinkProgram() //DUDAAAAAS 
 {
 	
 	glAttachShader(_programHandle, _attachedShaders.push_back); //preguntar esta linea. Tienen que ser  dos, uno para el frag y otro para el vert 
@@ -96,11 +96,16 @@ void ShaderProgram::SetUniformf(std::string name, float x, float y, float z, flo
 	glUseProgram(0);
 }
 
-void ShaderProgram::DeleteAndDetachShaders()
+void ShaderProgram::DeleteAndDetachShaders() //DUDAAAAAAS
 {
 	glDetachShader(_programHandle, _attachedShaders.push_back); //preguntar esta linea. Tienen que ser  dos, uno para el frag y otro para el vert 
 	
+	_attachedShaders.push_back->delete_all(); // esto es para eliminar todos los nodos de una lista 
+	_attachedShaders.push_back = 0;
+
 	glDeleteShader(_attachedShaders.push_back); //revisar si esta bien esta linea para borrar la lista 
+	
+    //revisar cual de las dos lineas para borrar la lista es la correcta 
 }
 
 void ShaderProgram::DeleteProgram()
