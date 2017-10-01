@@ -1,6 +1,4 @@
-//#include "Circle.h"
-//#include "Rectangle.h"
-//#include "Employee.h"
+
 #include <iostream>
 #include <GL/glew.h>
 #include <GL/freeglut.h>
@@ -99,7 +97,7 @@ void GameLoop()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //limpiamos el buffer de control y el de profundidad. Siempre hacerlo al inicio del frame
 
-	glUseProgram(shaderProgram); //Activamos el vertex shader y el fragment shaderl utilizando el manager 
+	glUseProgram(shaderProgram); //Activamos el vertex shader y el fragment shader utilizando el manager 
 
 	glBindVertexArray(vao); //activamos el mamager y con esto se activan todos los VBOs asociados automaticamente
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 12); //funcion de dibujando sin indices 
@@ -148,19 +146,3 @@ int main(int argc, char* argv[])
 
 	return 0;
 }
-
-/**
-int main() {
-	Circle circulo(2.0, "green");
-	std::cout << circulo.GetColor() << std::endl;
-
-	Rectangle rectangulo(5.0, 3.0);
-	std::cout << rectangulo.GetArea() << std::endl;
-
-	Employee empleado(8967, "Diana", "Hernandez", 1000);
-	std::cout << empleado.Print() << std::endl;
-
-	std::cin.get();
-	return 0;
-}
-**/
