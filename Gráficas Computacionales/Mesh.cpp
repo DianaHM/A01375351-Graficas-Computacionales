@@ -59,7 +59,7 @@ void Mesh::SetColorAttribute(std::vector<glm::vec3> colors, GLenum usage, GLuint
 	
 
 	if (colors.push_back == '\0' || sizecolors != _vertexCount) {
-		return;
+		
 	}
 	else 
 		SetAttributeData(_colorsVertexBufferObject, sizecolors, colorsdata, usage, locationIndex, 3);
