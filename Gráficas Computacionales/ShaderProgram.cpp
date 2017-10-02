@@ -5,7 +5,6 @@ Fecha: 2 de octubre del 2017
 Autor: A01375351 Diana Isabel Hernández María
 
 *************************************************/
-
 #include "ShaderProgram.h"
 #include "Shader.h"
 #include "memory"
