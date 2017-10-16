@@ -1,66 +1,146 @@
+/*****************
+Materia: Gráficas Computacionales 
+Fecha: 16 de octubre de 2017
+Autores: 
+		A01375351 Diana Isabel Hernández María 
+		A01375042 Valeria Jozahandy Sánchez Álvarez 	
+*****************/
+
 #include <iostream>
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 #include <glm/glm.hpp>
 #include <vector>
+#include "Camera.h"
 #include "Mesh.h"
 #include "ShaderProgram.h"
+#include "Transform.h"
 
 Mesh _mesh;
 ShaderProgram _shaderProgram;
-
+Transform _transform; 
+Camera _camera;
 
 void Initialize()
 {
-	std::vector<glm::vec2> positions;
+	std::vector<glm::vec3> positions;
 
-	positions.push_back(glm::vec2(0.0f, 1.0f));
-	positions.push_back(glm::vec2(0.0f, 0.5f));
-	positions.push_back(glm::vec2(0.95f, 0.3f));
-	positions.push_back(glm::vec2(0.45f, 0.18f));
-	positions.push_back(glm::vec2(0.6f, -0.8f));
-	positions.push_back(glm::vec2(0.3f, -0.4f));
-	positions.push_back(glm::vec2(-0.6f, -0.8f));
-	positions.push_back(glm::vec2(-0.3f, -0.4f));
-	positions.push_back(glm::vec2(-0.95f, 0.3f));
-	positions.push_back(glm::vec2(-0.45f, 0.18));
-	positions.push_back(glm::vec2(0.0f, 1.0f));
-	positions.push_back(glm::vec2(0.0f, 0.5f));
+	//Cara Frente 
+	positions.push_back(glm::vec3(-3.0f, -3.0f, 3.0f)); //0
+	positions.push_back(glm::vec3(3.0f, -3.0f, 3.0f)); //1
+	positions.push_back(glm::vec3(3.0f, 3.0f, 3.0f)); //2
+	positions.push_back(glm::vec3(-3.0, 3.0f, 3.0f)); //3
+	//Cara Derecha
+	positions.push_back(glm::vec3(3.0f, -3.0f, 3.0f)); //4
+	positions.push_back(glm::vec3(3.0f, -3.0f, -3.0f)); //5
+	positions.push_back(glm::vec3(3.0f, 3.0f, -3.0f)); //6
+	positions.push_back(glm::vec3(3.0f, 3.0f, 3.0f)); //7
+	//Cara Izquierda 
+	positions.push_back(glm::vec3(-3.0f, -3.0f, -3.0f)); //8
+	positions.push_back(glm::vec3(-3.0f, -3.0f, 3.0f)); //9
+	positions.push_back(glm::vec3(-3.0f, 3.0f, 3.0f)); //10
+	positions.push_back(glm::vec3(-3.0f, 3.0f, -3.0f)); //11
+	//Cara Atras 
+	positions.push_back(glm::vec3(3.0f, -3.0f, -3.0f)); //12
+	positions.push_back(glm::vec3(-3.0f, -3.0f, -3.0f)); //13
+	positions.push_back(glm::vec3(-3.0f, 3.0f, -3.0f)); //14
+	positions.push_back(glm::vec3(3.0f, 3.0f, -3.0f)); //15
+	//Cara Arriba 
+	positions.push_back(glm::vec3(-3.0f, 3.0f, 3.0f)); //16
+	positions.push_back(glm::vec3(3.0f, 3.0f, 3.0f)); //17
+	positions.push_back(glm::vec3(3.0f, 3.0f, -3.0f)); //18
+	positions.push_back(glm::vec3(-3.0f, 3.0f, -3.0f)); //19
+	//Cara Abajo
+	positions.push_back(glm::vec3(-3.0f, -3.0f, -3.0f)); //20
+	positions.push_back(glm::vec3(3.0f, -3.0f, -3.0f)); //21
+	positions.push_back(glm::vec3(3.0f, -3.0f, 3.0f)); //22
+	positions.push_back(glm::vec3(-3.0f, -3.0f, 3.0f)); //23
+
 
 	std::vector<glm::vec3> colors;
-	
-	colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
-	colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
-	colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
-	colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
-	colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
-	colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
-	colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
-	colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
-	colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
-	colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
-	colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
-	colors.push_back(glm::vec3(1.0f, 1.0f, 1.0f));
+	//Cara Frente 
+	colors.push_back(glm::vec3(1.0f, 0.0f, 1.0f));
+	colors.push_back(glm::vec3(1.0f, 0.0f, 1.0f));
+	colors.push_back(glm::vec3(1.0f, 0.0f, 1.0f));
+	colors.push_back(glm::vec3(1.0f, 0.0f, 1.0f));
+	//Cara Derecha
+	colors.push_back(glm::vec3(1.0f, 0.0f, 0.0f));
+	colors.push_back(glm::vec3(1.0f, 0.0f, 0.0f));
+	colors.push_back(glm::vec3(1.0f, 0.0f, 0.0f));
+	colors.push_back(glm::vec3(1.0f, 0.0f, 0.0f));
+	//Cara Izquierda 
+	colors.push_back(glm::vec3(0.0f, 1.0f, 0.0f));
+	colors.push_back(glm::vec3(0.0f, 1.0f, 0.0f));
+	colors.push_back(glm::vec3(0.0f, 1.0f, 0.0f));
+	colors.push_back(glm::vec3(0.0f, 1.0f, 0.0f));
+	//Cara Atras
+	colors.push_back(glm::vec3(1.0f, 1.0f, 0.0f));
+	colors.push_back(glm::vec3(1.0f, 1.0f, 0.0f));
+	colors.push_back(glm::vec3(1.0f, 1.0f, 0.0f));
+	colors.push_back(glm::vec3(1.0f, 1.0f, 0.0f));
+	//Cara Arriba
+	colors.push_back(glm::vec3(0.0f, 1.0f, 1.0f));
+	colors.push_back(glm::vec3(0.0f, 1.0f, 1.0f));
+	colors.push_back(glm::vec3(0.0f, 1.0f, 1.0f));
+	colors.push_back(glm::vec3(0.0f, 1.0f, 1.0f));
+	//Cara Abajo
+	colors.push_back(glm::vec3(0.0f, 0.0f, 1.0f));
+	colors.push_back(glm::vec3(0.0f, 0.0f, 1.0f));
+	colors.push_back(glm::vec3(0.0f, 0.0f, 1.0f));
+	colors.push_back(glm::vec3(0.0f, 0.0f, 1.0f));
 
-	_mesh.CreateMesh(12);
+	std::vector<unsigned int> indices; 
+	//Cara Frente 
+	indices.push_back(0); indices.push_back(1); indices.push_back(2);
+	indices.push_back(0); indices.push_back(2); indices.push_back(3);
+	//Cara Derecha
+	indices.push_back(4); indices.push_back(5); indices.push_back(6);
+	indices.push_back(4); indices.push_back(6); indices.push_back(7);
+	//Cara Izquierda
+	indices.push_back(8); indices.push_back(9); indices.push_back(10);
+	indices.push_back(8); indices.push_back(10); indices.push_back(11);
+	//Cara Atras
+	indices.push_back(12); indices.push_back(13); indices.push_back(14);
+	indices.push_back(12); indices.push_back(14); indices.push_back(15);
+	//Cara Arriba
+	indices.push_back(16); indices.push_back(17); indices.push_back(18);
+	indices.push_back(16); indices.push_back(18); indices.push_back(19);
+	//Cara Abajo
+	indices.push_back(20); indices.push_back(21); indices.push_back(22);
+	indices.push_back(20); indices.push_back(22); indices.push_back(23);
+
+	_mesh.CreateMesh(24);
+	_mesh.SetIndices(indices, GL_STATIC_DRAW);
 	_mesh.SetPositionAttribute(positions, GL_STATIC_DRAW, 0);
 	_mesh.SetColorAttribute(colors, GL_STATIC_DRAW, 1); 
 
+
+
 	_shaderProgram.CreateProgram();
-	_shaderProgram.AttachShader("DiscardCenter.vert", GL_VERTEX_SHADER);
-	_shaderProgram.AttachShader("DiscardCenter. frag", GL_FRAGMENT_SHADER);
+	_shaderProgram.AttachShader("Default.vert", GL_VERTEX_SHADER);
+	_shaderProgram.AttachShader("Default.frag", GL_FRAGMENT_SHADER);
 	_shaderProgram.SetAttribute(0, "VertexPosition");
 	_shaderProgram.SetAttribute(1, "VertexColor");
 	_shaderProgram.LinkProgram();
 
+	//_transform.SetRotation(0.0f, 0.0f, 90.0f);
+
+	//_camera.SetOrthographic(1.0f, 1.0f); Esto convierte la cámara en 2D
 }
 
 void GameLoop()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //limpiamos el buffer de control y el de profundidad. Siempre hacerlo al inicio del frame
+	
+	_camera.SetPosition(0.0f, 0.0f, 15.0f);
+
+	_transform.Rotate(0.01f, 0.01f, 0.01f, true); // si es false es rotación local, si es true es rotación del mundo 
 
 	_shaderProgram.Activate();
-	_mesh.Draw(GL_TRIANGLE_STRIP);
+	_shaderProgram.SetUniformMatrix("mvpMatrix",_camera.GetViewProjection()* _transform.GetModelMatrix());
+
+
+	_mesh.Draw(GL_TRIANGLES);
 	_shaderProgram.Deactivate();
 
 	//Cuando terminamos de renderear cambiamos los buffers 

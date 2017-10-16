@@ -1,12 +1,7 @@
-/***********************************************
 
-Materia: Gráficas Computacionales
-Fecha: 2 de octubre del 2017
-Autor: A01375351 Diana Isabel Hernández María
-
-*************************************************/
 #include "ShaderProgram.h"
 #include "Shader.h"
+#include <glm/gtc/type_ptr.hpp>
 #include "memory"
 #include <vector>
 
@@ -93,6 +88,12 @@ void ShaderProgram::SetUniformf(std::string name, float x, float y, float z, flo
 	GLint uniformLocation = glGetUniformLocation(_programHandle, name.c_str());
 	glUniform4f(uniformLocation, x, y, z, w);
 
+}
+
+void ShaderProgram::SetUniformMatrix(std::string name, glm::mat4 matrix)
+{
+	GLint uniformLocation = glGetUniformLocation(_programHandle, name.c_str());
+	glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(matrix));
 }
 
 void ShaderProgram::DeleteAndDetachShaders()
