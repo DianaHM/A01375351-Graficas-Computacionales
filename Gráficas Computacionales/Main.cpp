@@ -1,6 +1,6 @@
 /********************************************************
 Materia: Gráficas Computacionales 
-Fecha: 6 de noviembre de 2017
+Fecha: 13 de noviembre de 2017
 Autores: 
 		A01375351 Diana Isabel Hernández María 
 		A01375042 Valeria Jozahandy Sánchez Álvarez 	
