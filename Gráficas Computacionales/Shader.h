@@ -1,10 +1,4 @@
-/***********************************************
 
-Materia: Gráficas Computacionales
-Fecha: 2 de octubre del 2017
-Autor: A01375351 Diana Isabel Hernández María
-
-*************************************************/
 #pragma once
 #include <string>
 #include <iostream>

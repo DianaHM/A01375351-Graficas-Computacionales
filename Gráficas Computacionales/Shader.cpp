@@ -1,10 +1,3 @@
-/***********************************************
-
-Materia: Gráficas Computacionales
-Fecha: 2 de octubre del 2017
-Autor: A01375351 Diana Isabel Hernández María
-
-*************************************************/
 #include "Shader.h"
 #include "InputFile.h"
 #include <iostream>
